@@ -74,3 +74,66 @@ formatted_date=$(date -u -d @${seconds} +"%Y-%m-%d %H:%M:%S")
 formatted_nanoseconds=$(printf "%03d" $((nanoseconds/1000000)))
 echo "${formatted_date}.${formatted_nanoseconds}"
 ```
+
+# To use:
+
+create a script in the bundle, paste `container-crash-check.sh` into it, make it executable:
+
+```
+touch container-crash-check.sh
+vi container-crash-check.sh
+paste contents
+chmod +x container-crash-check.sh
+```
+
+run with:
+
+```
+./container-crash-check.sh
+```
+
+results will tell you which files containers 137's and convert them to GMT
+
+```
+[Bundle #131491] 131491 $ ./container-crash-check.sh
+Found exit137 in: system-logs/nomad-jobs/consul-template.consul-template[0].json
+epoch: 1713989368357771500  Crash Time: 2024-04-24 20:09:28.357
+Found exit137 in: system-logs/nomad-jobs/token.backend[0].json
+epoch: 1713200806591068400  Crash Time: 2024-04-15 17:06:46.591
+epoch: 1713989368407380200  Crash Time: 2024-04-24 20:09:28.407
+Found exit137 in: system-logs/nomad-jobs/token.frontend[0].json
+epoch: 1713200806804237600  Crash Time: 2024-04-15 17:06:46.804
+epoch: 1713989368157206300  Crash Time: 2024-04-24 20:09:28.157
+Found exit137 in: system-logs/nomad-jobs/mysql.mysql[0].json
+epoch: 1713989368740230100  Crash Time: 2024-04-24 20:09:28.740
+Found exit137 in: system-logs/nomad-jobs/babeld.babeld[0].json
+epoch: 1713200806985290800  Crash Time: 2024-04-15 17:06:46.985
+epoch: 1713989368339992800  Crash Time: 2024-04-24 20:09:28.339
+Found exit137 in: system-logs/nomad-jobs/pages-deployer-api.pages-deployer-api[0].json
+epoch: 1713200806884139300  Crash Time: 2024-04-15 17:06:46.884
+epoch: 1713989368323414000  Crash Time: 2024-04-24 20:09:28.323
+Found exit137 in: system-logs/nomad-jobs/pages-deployer-worker.pages-deployer-worker[0].json
+epoch: 1713200806575738400  Crash Time: 2024-04-15 17:06:46.575
+epoch: 1713989368314713000  Crash Time: 2024-04-24 20:09:28.314
+Found exit137 in: system-logs/nomad-jobs/artifactcache.backend[0].json
+epoch: 1713200806745746000  Crash Time: 2024-04-15 17:06:46.745
+epoch: 1713989368174419700  Crash Time: 2024-04-24 20:09:28.174
+Found exit137 in: system-logs/nomad-jobs/artifactcache.frontend[0].json
+epoch: 1713200806283576600  Crash Time: 2024-04-15 17:06:46.283
+epoch: 1713989368757532000  Crash Time: 2024-04-24 20:09:28.757
+Found exit137 in: system-logs/nomad-jobs/actions.frontend[0].json
+epoch: 1713200806270373000  Crash Time: 2024-04-15 17:06:46.270
+epoch: 1713989368917609500  Crash Time: 2024-04-24 20:09:28.917
+Found exit137 in: system-logs/nomad-jobs/mps.backend[0].json
+epoch: 1713200806654149000  Crash Time: 2024-04-15 17:06:46.654
+epoch: 1713989368466476000  Crash Time: 2024-04-24 20:09:28.466
+Found exit137 in: system-logs/nomad-jobs/actions.backend[0].json
+epoch: 1713200806680714800  Crash Time: 2024-04-15 17:06:46.680
+epoch: 1713989368235224800  Crash Time: 2024-04-24 20:09:28.235
+Found exit137 in: system-logs/nomad-jobs/mps.frontend[0].json
+epoch: 1713200806933305900  Crash Time: 2024-04-15 17:06:46.933
+epoch: 1713989368185980000  Crash Time: 2024-04-24 20:09:28.185
+Found exit137 in: system-logs/nomad-jobs/mssql.mssql[0].json
+epoch: 1713989368121627600  Crash Time: 2024-04-24 20:09:28.121
+```
+
