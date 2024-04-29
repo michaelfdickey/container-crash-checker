@@ -8,9 +8,11 @@ find system-logs/nomad-jobs/ -name "*.json" | while read file; do
     timestamp=$(jq < "$file" | grep -B 2 137 | grep "Time" | awk '{print $2}' | tr -d ',')
     seconds=$(echo "$timestamp / 1000000000" | bc)
     nanoseconds=$(echo "$timestamp % 1000000000" | bc)
-    formatted_date=$(date -u -d @${seconds} +"%Y-%m-%d %H:%M:%S")
+    # Corrected date command usage to avoid "extra operand" error
+    formatted_date=$(date -u +"%Y-%m-%d %H:%M:%S" --date="@${seconds}")
     formatted_nanoseconds=$(printf "%03d" $((nanoseconds/1000000)))
     human_readable_date="${formatted_date}.${formatted_nanoseconds}"
-    echo "Crash Time: $human_readable_date"
+    # Include epoch time in the output line
+    echo "epoch: ${timestamp}  Crash Time: $human_readable_date"
   fi
 done
