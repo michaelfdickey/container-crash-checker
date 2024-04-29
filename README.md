@@ -64,3 +64,13 @@ Relative: 5 months ago
 
 this tool will scan all the results and return the relative time of the container crash
 
+To do this on a bundle this bash script will do it:
+
+```
+timestamp=1700323960296048000
+seconds=$(echo "$timestamp / 1000000000" | bc)
+nanoseconds=$(echo "$timestamp % 1000000000" | bc)
+formatted_date=$(date -u -d @${seconds} +"%Y-%m-%d %H:%M:%S")
+formatted_nanoseconds=$(printf "%03d" $((nanoseconds/1000000)))
+echo "${formatted_date}.${formatted_nanoseconds}"
+```
