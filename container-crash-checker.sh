@@ -3,7 +3,7 @@
 # Check for container crashes and echo found files immediately
 find system-logs/nomad-jobs/ -name "*.json" | while read file; do
   if grep -q "Docker container exited with non-zero exit code: 137" "$file"; then
-    echo "Found crash file: $file"
+    echo "Found exit137 in: $file"
     # Extract timestamp and convert to human-readable format
     # Handle multiple lines of timestamps correctly
     jq < "$file" | grep -B 2 137 | grep "Time" | awk '{print $2}' | tr -d ',' | while read timestamp; do
