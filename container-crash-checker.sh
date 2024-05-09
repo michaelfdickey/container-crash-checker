@@ -2,11 +2,11 @@
 
 # Check for container crashes and echo found files immediately
 find system-logs/nomad-jobs/ -name "*.json" | while read file; do
-  if grep -q "Docker container exited with non-zero exit code: 137" "$file"; then
-    echo "Found exit137 in: $file"
+  if grep -q "Docker container exited with non-zero exit code: 137\|Docker container exited with non-zero exit code: 138\|Docker container exited with non-zero exit code: 139" "$file"; then
+    echo "Found exit code 137, 138, or 139 in: $file"
     # Extract timestamp and convert to human-readable format
     # Handle multiple lines of timestamps correctly
-    jq < "$file" | grep -B 2 137 | grep "Time" | awk '{print $2}' | tr -d ',' | while read timestamp; do
+    jq < "$file" | grep -E -B 2 "(137|138|139)" | grep "Time" | awk '{print $2}' | tr -d ',' | while read timestamp; do
       # Ensure arithmetic operations are performed on individual lines to avoid syntax errors
       seconds=$(echo "$timestamp / 1000000000" | bc)
       nanoseconds=$(echo "$timestamp % 1000000000" | bc)
